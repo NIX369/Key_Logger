@@ -27,7 +27,7 @@ class Monitor:
     def _screenshot(self):
         sct = mss()
         sct.shot(output='./logs/screenshots/{}.png'.format(time.time()))
-        sct.save()
+
 
     def run(self, interval = 1):
 
